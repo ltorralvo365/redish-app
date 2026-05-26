@@ -3,3 +3,6 @@ docker build -t redish-site .
 
 #Run Container
 docker run -d -p 8080:80 --name redish-app redish-site
+
+#Open website
+http://localhost:8080
