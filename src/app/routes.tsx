@@ -41,4 +41,6 @@ export const router = createBrowserRouter([
     path: "/compost-partners",
     Component: CompostPartners,
   },
-]);
+], {
+  basename: import.meta.env.BASE_URL
+});
