@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Navigate } from "react-router";
 import { Home } from "./pages/Home";
 import { OfferDetail } from "./pages/OfferDetail";
 import { Cart } from "./pages/Cart";
@@ -7,40 +7,31 @@ import { Favorites } from "./pages/Favorites";
 import { Subscriptions } from "./pages/Subscriptions";
 import { EcoRanking } from "./pages/EcoRanking";
 import { CompostPartners } from "./pages/CompostPartners";
+import { Auth } from "./pages/Auth";
+import { SellerDashboard } from "./pages/SellerDashboard";
+import { ProtectedLayout } from "./components/ProtectedLayout";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    Component: Home,
+    path: "/auth",
+    Component: Auth,
   },
   {
-    path: "/offer/:id",
-    Component: OfferDetail,
+    Component: ProtectedLayout,
+    children: [
+      { index: true, Component: Home },
+      { path: "/offer/:id", Component: OfferDetail },
+      { path: "/cart", Component: Cart },
+      { path: "/favorites", Component: Favorites },
+      { path: "/profile", Component: Profile },
+      { path: "/subscriptions", Component: Subscriptions },
+      { path: "/eco-ranking", Component: EcoRanking },
+      { path: "/compost-partners", Component: CompostPartners },
+      { path: "/seller", Component: SellerDashboard },
+    ],
   },
   {
-    path: "/cart",
-    Component: Cart,
+    path: "*",
+    element: <Navigate to="/" replace />,
   },
-  {
-    path: "/favorites",
-    Component: Favorites,
-  },
-  {
-    path: "/profile",
-    Component: Profile,
-  },
-  {
-    path: "/subscriptions",
-    Component: Subscriptions,
-  },
-  {
-    path: "/eco-ranking",
-    Component: EcoRanking,
-  },
-  {
-    path: "/compost-partners",
-    Component: CompostPartners,
-  },
-], {
-  basename: import.meta.env.BASE_URL
-});
+]);
