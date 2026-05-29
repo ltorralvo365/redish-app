@@ -232,6 +232,135 @@ export function isNearOffer(offer: Offer, userLat: number = 38.7223, userLng: nu
   return distance <= 0.5; // Within 500m
 }
 
+export type SurplusType = "nao_vendido" | "grandes_quantidades" | "improprio_consumo";
+
+export interface CommercialOffer {
+  id: string;
+  establishmentName: string;
+  establishmentType: string;
+  address: string;
+  distance: number;
+  rating: number;
+  image: string;
+  surplusTypes: SurplusType[];
+  surplusDescription: string;
+  estimatedWeight: string; // kg approx
+  availableFrom: string;
+  contact: string;
+  category: string;
+}
+
+export const SURPLUS_LABELS: Record<SurplusType, { label: string; color: string; description: string }> = {
+  nao_vendido: {
+    label: "Não vendido",
+    color: "bg-blue-100 text-blue-700 border-blue-200",
+    description: "Comida em boas condições que não foi vendida mesmo após estar disponível na app",
+  },
+  grandes_quantidades: {
+    label: "Grandes quantidades",
+    color: "bg-amber-100 text-amber-700 border-amber-200",
+    description: "Grandes quantidades de alimentos em boas condições que restam (supermercados, etc.)",
+  },
+  improprio_consumo: {
+    label: "Impróprio p/ consumo",
+    color: "bg-red-100 text-red-700 border-red-200",
+    description: "Alimentos que já não são próprios para consumo humano (compostagem, ração, biomassa)",
+  },
+};
+
+export const commercialOffers: CommercialOffer[] = [
+  {
+    id: "c1",
+    establishmentName: "Pingo Doce – Avenida",
+    establishmentType: "Supermercado",
+    address: "Av. da Liberdade 230, Lisboa",
+    distance: 0.4,
+    rating: 4.6,
+    image: "https://images.unsplash.com/photo-1601598851547-4302969d0614?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+    surplusTypes: ["grandes_quantidades", "nao_vendido"],
+    surplusDescription: "Frutas, legumes, pão e lacticínios perto do prazo. Aprox. 80–120 kg por dia útil.",
+    estimatedWeight: "80–120 kg/dia",
+    availableFrom: "20:00",
+    contact: "geral@pingodonline.pt",
+    category: "Supermercado",
+  },
+  {
+    id: "c2",
+    establishmentName: "La Bella Italia",
+    establishmentType: "Restaurante",
+    address: "Rua Augusta 54, Lisboa",
+    distance: 0.8,
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+    surplusTypes: ["nao_vendido"],
+    surplusDescription: "Massas frescas, molhos, pão artesanal e sobremesas do serviço do jantar.",
+    estimatedWeight: "15–25 kg/dia",
+    availableFrom: "22:00",
+    contact: "cozinha@labellaitalia.pt",
+    category: "Restaurante",
+  },
+  {
+    id: "c3",
+    establishmentName: "Padaria Artesanal Central",
+    establishmentType: "Padaria",
+    address: "Rua do Ouro 12, Lisboa",
+    distance: 0.6,
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+    surplusTypes: ["nao_vendido", "improprio_consumo"],
+    surplusDescription: "Pães, croissants, bolos e pastelaria do dia. O que não está em condições para ONG vai para compostagem.",
+    estimatedWeight: "30–50 kg/dia",
+    availableFrom: "19:30",
+    contact: "padaria@central.pt",
+    category: "Padaria",
+  },
+  {
+    id: "c4",
+    establishmentName: "Hotel Avenida Palace",
+    establishmentType: "Hotel",
+    address: "Rua 1º de Dezembro 123, Lisboa",
+    distance: 1.1,
+    rating: 4.7,
+    image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+    surplusTypes: ["grandes_quantidades", "nao_vendido"],
+    surplusDescription: "Buffet de pequeno-almoço e jantar. Alimentos em boas condições, embalados conforme normas HACCP.",
+    estimatedWeight: "40–80 kg/dia",
+    availableFrom: "11:00",
+    contact: "sustainability@avenidapalace.pt",
+    category: "Hotel",
+  },
+  {
+    id: "c5",
+    establishmentName: "Mercado de Campo de Ourique",
+    establishmentType: "Mercado",
+    address: "R. Coelho da Rocha, Lisboa",
+    distance: 2.1,
+    rating: 4.5,
+    image: "https://images.unsplash.com/photo-1488459716781-31db52582fe9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+    surplusTypes: ["grandes_quantidades", "improprio_consumo"],
+    surplusDescription: "Frutas e legumes em excesso ou com aspeto irregular. Adequado para compostagem ou ração animal.",
+    estimatedWeight: "50–100 kg/dia",
+    availableFrom: "18:00",
+    contact: "gestao@mercadocampoourique.pt",
+    category: "Mercado",
+  },
+  {
+    id: "c6",
+    establishmentName: "Cantina Universitária ISCTE",
+    establishmentType: "Cantina",
+    address: "Av. das Forças Armadas, Lisboa",
+    distance: 3.0,
+    rating: 4.2,
+    image: "https://images.unsplash.com/photo-1567521464027-f127ff144326?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=800",
+    surplusTypes: ["nao_vendido", "grandes_quantidades"],
+    surplusDescription: "Refeições completas e ingredientes do serviço de almoço. Acondicionamento em contentores próprios.",
+    estimatedWeight: "60–90 kg/dia",
+    availableFrom: "14:30",
+    contact: "cantina@iscte.pt",
+    category: "Cantina",
+  },
+];
+
 export const offers: Offer[] = [
   {
     id: "1",
