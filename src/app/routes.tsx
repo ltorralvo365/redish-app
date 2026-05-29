@@ -9,13 +9,11 @@ import { EcoRanking } from "./pages/EcoRanking";
 import { CompostPartners } from "./pages/CompostPartners";
 import { Auth } from "./pages/Auth";
 import { SellerDashboard } from "./pages/SellerDashboard";
+import { SellerSalesHistory } from "./pages/SellerSalesHistory";
 import { ProtectedLayout } from "./components/ProtectedLayout";
 
 export const router = createBrowserRouter([
-  {
-    path: "/auth",
-    Component: Auth,
-  },
+  { path: "/auth", Component: Auth },
   {
     Component: ProtectedLayout,
     children: [
@@ -28,10 +26,8 @@ export const router = createBrowserRouter([
       { path: "/eco-ranking", Component: EcoRanking },
       { path: "/compost-partners", Component: CompostPartners },
       { path: "/seller", Component: SellerDashboard },
+      { path: "/seller/history", Component: SellerSalesHistory },
     ],
   },
-  {
-    path: "*",
-    element: <Navigate to="/" replace />,
-  },
+  { path: "*", element: <Navigate to="/" replace /> },
 ]);

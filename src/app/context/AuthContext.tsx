@@ -7,9 +7,10 @@ export type EstablishmentType = "restaurante" | "padaria" | "cafe" | "supermerca
 
 export interface ConsumerProfile {
   partnershipType: PartnershipType;
-  name?: string; // personal
-  orgName?: string; // commercial
-  orgType?: CommercialOrgType; // commercial
+  city: string;
+  name?: string;
+  orgName?: string;
+  orgType?: CommercialOrgType;
 }
 
 export interface SellerProfile {
@@ -41,7 +42,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser({
       email,
       accountType: "consumer",
-      consumerProfile: { partnershipType: "personal", name: "Utilizador" },
+      consumerProfile: { partnershipType: "personal", city: "Lisboa", name: "Utilizador" },
     });
   };
 
