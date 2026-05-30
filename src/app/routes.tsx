@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { createHashRouter, Navigate } from "react-router";
 import { Home } from "./pages/Home";
 import { OfferDetail } from "./pages/OfferDetail";
 import { Cart } from "./pages/Cart";
@@ -12,7 +12,7 @@ import { SellerDashboard } from "./pages/SellerDashboard";
 import { SellerSalesHistory } from "./pages/SellerSalesHistory";
 import { ProtectedLayout } from "./components/ProtectedLayout";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   { path: "/auth", Component: Auth },
   {
     Component: ProtectedLayout,
